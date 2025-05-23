@@ -35,6 +35,7 @@ import { registerSettingsHandlers } from './services/settings';
 import { sanitizeState } from './utils/sanitizeState';
 import { windowManager } from './services/windowManager';
 import { checkBrowserAvailability } from './services/browserCheck';
+import { activityRecorder } from '@main/services/activityRecorder';
 
 const { isProd } = env;
 
@@ -163,6 +164,14 @@ const initializeApp = async () => {
   });
 
   logger.info('initializeApp end');
+
+  // Start activity recording automatically
+  try {
+    await activityRecorder.startRecording();
+    logger.info('Activity recording started automatically');
+  } catch (error) {
+    logger.error('Failed to start activity recording:', error);
+  }
 
   // Check and update remote presets
   const settings = SettingStore.getStore();

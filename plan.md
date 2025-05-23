@@ -57,9 +57,9 @@ Saved under a unique ID, each entry will look like this:
 
 {
   "type": "mouse",
-  "event": "click" | "move" | "drag" | "scroll",
+  "event": "click" | "drag" | "scroll",
   "button": "left" | "right" | "middle",
-  "position": [x, y],      // required for click/move/drag
+  "position": [x, y],      // required for click/drag
   "to_position": [x, y],   // required for drag
   "scroll_amount": 50      // required for scroll
 }
@@ -90,15 +90,20 @@ Saved under a unique ID, each entry will look like this:
 ## Implementation Checklist
 
 ### Phase 1: Core Recording
-- [ ] Implement screenshot capture functionality (200ms intervals)
-- [ ] Create screenshot cache management (keep only latest screenshot)
-- [ ] Implement mouse event capture (click, move, drag, scroll)
-- [ ] Implement keyboard event capture (keystroke, hotkey combinations)
-- [ ] Create action object formatting functions
+- [x] Implement screenshot capture functionality (200ms intervals)
+- [x] Create screenshot cache management (keep only latest screenshot)
+- [x] Implement mouse event capture (click, drag, scroll)
+- [x] Implement keyboard event capture (keystroke, hotkey combinations)
+- [x] Create action object formatting functions
 
 ### Phase 2: API Integration (Mock)
-- [ ] **Print API request string instead of sending** (no API available yet)
-- [ ] Format multipart/form-data payload structure
-- [ ] Generate unique IDs and timestamps for each action
-- [ ] Extract screen metadata (width, height)
-- [ ] Create JSON structure for actions according to spec
+- [x] **Print API request string instead of sending** (no API available yet)
+- [x] Format multipart/form-data payload structure
+- [x] Generate unique IDs and timestamps for each action
+- [x] Extract screen metadata (width, height)
+- [x] Create JSON structure for actions according to spec
+
+
+## Expectations
+
+When running the app, every mouse click and keyboard stroke is printed in the terminal.
