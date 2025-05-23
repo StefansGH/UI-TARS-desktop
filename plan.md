@@ -11,6 +11,7 @@ After launching app,
 * after Posting this to the API, the images are removed from cache
 * Sent this activity to the record-api
 
+
 ## Record-API
 
 Is a simple REST API that allows a user to send:
@@ -79,10 +80,25 @@ Saved under a unique ID, each entry will look like this:
 }
 
 
-
-
-
 ## Reference implementations
 
-* `PyMacroRecord` is macro recorder. It has a different purpose (record and repeat), but the recording functionality can be reused. Ignore the Linux and Windows stuff, focus on MacOS
+* `PyMacroRecord` is macro recorder build in Python. It has a different purpose (record and repeat), but the recording functionality can be reused. Ignore the Linux and Windows stuff, focus on MacOS
+* An old implementation in Python I build myself.
+* IMPORTANT: It needs to be part of the existing Node.js application.
 
+
+## Implementation Checklist
+
+### Phase 1: Core Recording
+- [ ] Implement screenshot capture functionality (200ms intervals)
+- [ ] Create screenshot cache management (keep only latest screenshot)
+- [ ] Implement mouse event capture (click, move, drag, scroll)
+- [ ] Implement keyboard event capture (keystroke, hotkey combinations)
+- [ ] Create action object formatting functions
+
+### Phase 2: API Integration (Mock)
+- [ ] **Print API request string instead of sending** (no API available yet)
+- [ ] Format multipart/form-data payload structure
+- [ ] Generate unique IDs and timestamps for each action
+- [ ] Extract screen metadata (width, height)
+- [ ] Create JSON structure for actions according to spec
