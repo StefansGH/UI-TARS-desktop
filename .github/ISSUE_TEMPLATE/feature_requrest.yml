@@ -20,7 +20,7 @@ body:
       options:
         - label: Select a project 👇
           required: true
-        - label: Agent-TARS App
+
         - label: UI-TARS Desktop
         - label: Infra Packages
   

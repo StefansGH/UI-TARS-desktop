@@ -18,8 +18,7 @@
   "ignore": [
     "ui-tars-desktop",
     "ui-tars-desktop-renderer",
-    "agent-tars-app",
-    "agent-tars-app-renderer",
+
     "@common/*",
     "@agent-infra/mcp-benchmark"
   ]

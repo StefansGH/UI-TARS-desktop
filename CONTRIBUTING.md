@@ -58,40 +58,34 @@ This is a [Monorepo](https://pnpm.io/workspaces) project including the following
 .
 ├── README.md
 ├── apps
-│   ├── agent-tars
-│   │   ├── src
-│   │   │   ├── main
-│   │   │   ├── preload
-│   │   │   ├── renderer
-│   │   │   └── vendor
-│   └── ui-tars
-│       └── src
-│           ├── main
-│           ├── preload
-│           └── renderer
-│ 
+│   └── ui-tars
+│       └── src
+│           ├── main
+│           ├── preload
+│           └── renderer
+│ 
 ├── packages
-│   ├── agent-infra
-│   │   ├── browser
-│   │   ├── browser-use
-│   │   ├── logger
-│   │   ├── mcp-client
-│   │   ├── mcp-servers
-│   │   ├── search
-│   │   └── shared
-│   ├── common
-│   │   ├── configs
-│   │   └── electron-build
-│   └── ui-tars
-│       ├── action-parser
-│       ├── cli
-│       ├── electron-ipc
-│       ├── operators
-│       ├── sdk
-│       ├── shared
-│       ├── tsconfig.node.json
-│       ├── utio
-│       └── visualizer
+│   ├── agent-infra
+│   │   ├── browser
+│   │   ├── browser-use
+│   │   ├── logger
+│   │   ├── mcp-client
+│   │   ├── mcp-servers
+│   │   ├── search
+│   │   └── shared
+│   ├── common
+│   │   ├── configs
+│   │   └── electron-build
+│   └── ui-tars
+│       ├── action-parser
+│       ├── cli
+│       ├── electron-ipc
+│       ├── operators
+│       ├── sdk
+│       ├── shared
+│       ├── tsconfig.node.json
+│       ├── utio
+│       └── visualizer
 └── vitest.*.mts            # Unit test configuration
 ```
 
@@ -117,7 +111,6 @@ $ pnpm install
 
 ```bash
 $ pnpm run dev:ui-tars    # Start UI-TARS Desktop
-$ pnpm run dev:agent-tars # Start Agent-TARS Desktop
 ```
 
 After the application starts, you can see the UI-TARS interface within the application.

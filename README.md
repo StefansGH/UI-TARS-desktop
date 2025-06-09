@@ -1,11 +1,14 @@
 
+To keep your fork updated regularly, just repeat steps 3-5:
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
 
-> [!IMPORTANT]
-> <a href="./apps/agent-tars/README.md">
->   <img src="./apps/agent-tars/static/hero.png">
-> </a>
->
-> **\[2025-03-18\]** We released a **technical preview** version of a new desktop app - [Agent TARS](./apps/agent-tars/README.md), a multimodal AI agent that leverages browser operations by visually interpreting web pages and seamlessly integrating with command lines and file systems.
+Run 
+pnpm run dev:ui-tars
+
+
 
 
 <p align="center">
