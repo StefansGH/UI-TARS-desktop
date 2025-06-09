@@ -5,11 +5,18 @@ import {
   AppUpdater as ElectronAppUpdater,
   autoUpdater,
 } from 'electron-updater';
+import { CustomGitHubProvider } from '@main/electron-updater/GitHubProvider';
+import { tagPrefix } from '@shared/constants';
+
+const REPO_OWNER = 'bytedance';
+const REPO_NAME = 'UI-TARS-desktop';
 
 export class AppUpdater {
   autoUpdater: ElectronAppUpdater = autoUpdater;
 
-  checkReleaseName(releaseName: string | undefined | null): boolean {
+  checkReleaseName(releaseInfo: UpdateInfo): boolean {
+    const releaseName = releaseInfo?.files?.[0]?.url;
+
     return Boolean(
       releaseName && /agent[-.\s]?tars/i.test(releaseName.toLowerCase()),
     );
@@ -19,6 +26,15 @@ export class AppUpdater {
     autoUpdater.logger = logger;
     autoUpdater.autoDownload = false;
 
+    autoUpdater.setFeedURL({
+      // hack for custom provider
+      provider: 'custom' as 'github',
+      owner: REPO_OWNER,
+      repo: REPO_NAME,
+      // @ts-expect-error hack for custom provider
+      updateProvider: CustomGitHubProvider,
+    });
+
     autoUpdater.on('error', (error) => {
       logger.error('Update_Error', error);
       mainWindow.webContents.send('main:error', error);
@@ -26,9 +42,8 @@ export class AppUpdater {
 
     autoUpdater.on('update-available', (releaseInfo: UpdateInfo) => {
       logger.info('new version', releaseInfo);
-      const appName = releaseInfo?.files?.[0]?.url;
 
-      if (this.checkReleaseName(appName)) {
+      if (this.checkReleaseName(releaseInfo)) {
         mainWindow.webContents.send('app-update-available', releaseInfo);
         autoUpdater.downloadUpdate();
       } else {
@@ -64,13 +79,15 @@ export class AppUpdater {
     });
 
     // Listen for available updates
-    autoUpdater.on('update-available', (info) => {
+    autoUpdater.on('update-available', (info: UpdateInfo) => {
       logger.info(`New version found: ${info.version}`);
-      if (this.checkReleaseName(info?.releaseName)) {
+
+      if (this.checkReleaseName(info)) {
         dialog.showMessageBox({
           type: 'info',
           title: 'Update Available',
           message: `New version ${info.version} available, downloading...`,
+          detail: `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/tag/${tagPrefix}${info.version}`,
         });
         autoUpdater.downloadUpdate();
       } else {
@@ -85,7 +102,7 @@ export class AppUpdater {
     });
 
     // Listen for update download completion
-    autoUpdater.on('update-downloaded', (_) => {
+    autoUpdater.on('update-downloaded', (info) => {
       logger.info('Update downloaded');
       dialog
         .showMessageBox({
@@ -93,6 +110,7 @@ export class AppUpdater {
           title: 'Update Ready',
           message: 'New version has been downloaded. Install now?',
           buttons: ['Install Now', 'Install Later'],
+          detail: `https://github.com/${REPO_OWNER}/${REPO_NAME}/releases/tag/${tagPrefix}${info.version}`,
         })
         .then((response) => {
           if (response.response === 0) {
